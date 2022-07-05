@@ -1,12 +1,12 @@
-# radar-helm-charts
+# h2o-helm-charts
 
-The helm charts of the RADAR-base platform. Installation of these charts is best managed via [RADAR-Kubernetes](https://github.com/RADAR-base/RADAR-Kubernetes). Use the releases in this repository by referencing helm repository `radar` with URL <https://radar-base.github.com/radar-helm-charts>.
+The helm charts of the H2O-specific components of the RADAR-base platform. Installation of these charts is best managed via [RADAR-Kubernetes](https://github.com/RADAR-base/RADAR-Kubernetes). Use the releases in this repository by referencing helm repository `h2o` with URL <https://imi-h2o.github.io/h2o-helm-charts>.
 
 ## About
 
 RADAR-base is an open-source platform designed to support remote clinical trials by collecting continuous data from wearables and mobile applications. RADAR-Kubernetes enables installing the RADAR-base platform onto Kubernetes clusters. RADAR-base platform can be used for wide range of use-cases. Depending on the use-case, the selection of applications need to be installed can vary. Please read the [component overview and breakdown](https://radar-base.atlassian.net/wiki/spaces/RAD/pages/2673967112/Component+overview+and+breakdown) to understand the role of each component and how components work together. 
 
-The radar-helm-charts setup uses [Helm 3](https://github.com/helm/helm) charts to package necessary Kubernetes resources for each component.
+The h2o-helm-charts setup uses [Helm 3](https://github.com/helm/helm) charts to package necessary Kubernetes resources for each component.
 
 This documentation assumes familiarity with all referenced Kubernetes concepts, utilities, and procedures and familiarity with Helm charts.
 
