@@ -1,0 +1,19 @@
+apiVersion: v2
+appVersion: "0.1.0"
+name: outcomes-dashboard-api
+description: API for data in the H2O outcomes dashboard
+version: 0.1.0
+sources: ["https://github.com/IMI-H2O/outcomes-dashboard"]
+deprecated: false
+type: application
+home: "https://radar-base.org"
+maintainers:
+  - email: keyvan@thehyve.nl
+    name: Keyvan Hedayati
+    url: https://www.thehyve.nl
+  - email: joris@thehyve.nl
+    name: Joris Borgdorff
+    url: https://www.thehyve.nl/experts/joris-borgdorff
+  - email: nivethika@thehyve.nl
+    name: Nivethika Mahasivam
+    url: https://www.thehyve.nl/experts/nivethika-mahasivam
