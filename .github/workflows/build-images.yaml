@@ -47,7 +47,7 @@ jobs:
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.DOCKER_IMAGE }}
-          flavor: latest
+          flavor: latest=true
           tags: |
             type=raw,${{ steps.versions.outputs.image-version }}-aws-${{ steps.versions.outputs.aws-version }}-k8s-${{ steps.versions.outputs.kubectl-version }}
             type=raw,${{ steps.versions.outputs.image-version }}-aws-${{ steps.versions.outputs.aws-version }}
