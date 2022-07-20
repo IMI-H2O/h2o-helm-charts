@@ -88,9 +88,9 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.docker_meta.outputs.tags }}
-          build-args:
-            - AWS_VERSION=${{ steps.versions.outputs.aws-version }}
-            - KUBECTL_VERSION=${{ steps.versions.outputs.kubectl-version }}
+          build-args: |
+            AWS_VERSION=${{ steps.versions.outputs.aws-version }}
+            KUBECTL_VERSION=${{ steps.versions.outputs.kubectl-version }}
           # Use runtime labels from docker_meta as well as fixed labels
           labels: |
             ${{ steps.docker_meta.outputs.labels }}
