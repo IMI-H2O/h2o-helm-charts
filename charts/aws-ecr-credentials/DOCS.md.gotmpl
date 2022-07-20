@@ -1,0 +1,51 @@
+{{ define "aws-ecr-credentials.awsSection" -}}
+## AWS setup
+
+Create an IAM user that has the following policies enabled:
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowPull",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:BatchGetImage",
+            ],
+            "Resource": "arn:aws:ecr:<AWS region>:<AWS account number>:repository/<repository wildcard>"
+        },
+        {
+            "Sid": "AllowLogin",
+            "Effect": "Allow",
+            "Action": "ecr:GetAuthorizationToken",
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+In the snippet above, replace `<AWS region>`, `<AWS account number>` and `<repository wildcard>` with their respective values. Provide these values and the credentials of the created user in the `aws` values object.
+
+{{- end}}
+
+{{ define "aws-ecr-credentials.pullSecretSection" -}}
+## Pull secret usage
+
+If `patchServiceAccount` is set to true, the created secret will be set as one of the default pull secrets for the namespaces. Individual deployments then don't need to be modified. If a default pull secret is not required, they need to be set as follows. Suppose the full name of the chart is `aws-ecr-credentials`, then the secret will be called `aws-ecr-credentials-aws-registry`. Then in your kubernetes deployment use `imagePullSecrets: aws-ecr-credentials-aws-registry`.
+
+Example:
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+      - name: aws-ecr-credentials-aws-registry
+      containers:
+        - name: node
+          image: node:latest
+```
+{{- end}}

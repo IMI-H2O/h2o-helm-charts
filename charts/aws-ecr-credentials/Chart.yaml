@@ -1,0 +1,16 @@
+apiVersion: v2
+appVersion: 0.1.0
+deprecated: false
+description: Seemlessly update AWS ECR credentials into Kubernetes as a pull secret to pull private repositories with.
+keywords:
+- aws ecr
+- imagePullSecrets
+- kubernetes
+maintainers:
+- email: joris@thehyve.nl
+  name: Joris Borgdorff
+name: aws-ecr-credentials
+sources:
+- https://github.com/IMI-H2O/h2o-helm-charts/tree/master/charts/aws-ecr-credentials
+type: application
+version: 0.1.0

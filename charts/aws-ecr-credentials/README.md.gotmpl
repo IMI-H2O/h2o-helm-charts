@@ -1,0 +1,21 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "common.prerequisites" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "aws-ecr-credentials.awsSection"}}
+{{ template "aws-ecr-credentials.pullSecretSection"}}
+
+{{ template "chart.valuesSection" . }}

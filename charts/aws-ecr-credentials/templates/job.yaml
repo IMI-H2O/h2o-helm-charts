@@ -1,0 +1,57 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "aws-ecr-credentials.job" . }}
+  namespace: {{ include "aws-ecr-credentials.namespace" . }}
+  labels:
+    {{- include "aws-ecr-credentials.labels" . | nindent 4 }}
+spec:
+  backoffLimit: 4
+  template:
+    metadata:
+      annotations:
+            {{- with .Values.podAnnotations }}{{ toYaml . | nindent 8 }}{{ end }}
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      labels:
+        {{- include "aws-ecr-credentials.podLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ include "aws-ecr-credentials.serviceAccount" . }}
+      terminationGracePeriodSeconds: 0
+      restartPolicy: Never
+      containers:
+        - name: aws-ecr-credentials
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "aws-ecr-credentials.secret" . }}
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "aws-ecr-credentials.secret" . }}
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: AWS_ACCOUNT
+              value: {{ .Values.aws.account | int | quote  }}
+            - name: AWS_REGION
+              value: {{ .Values.aws.region | quote  }}
+            - name: NAMESPACES
+              value: {{ join " " .Values.targetNamespaces | quote }}
+            - name: SECRET_NAME
+              value: {{ include "aws-ecr-credentials.dockerSecret" . }}
+            - name: PATCH_SERVICEACCOUNT
+              value: {{ .Values.patchServiceAccount | quote }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

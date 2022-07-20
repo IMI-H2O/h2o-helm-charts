@@ -1,0 +1,3 @@
+Run the following command to see the AWS docker login secret:
+
+    kubectl describe -n {{ index .Values.targetNamespaces 0 }} secret {{ include "aws-ecr-credentials.dockerSecret" . }}

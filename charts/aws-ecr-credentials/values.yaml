@@ -1,0 +1,52 @@
+image:
+  # -- Docker image repository
+  repository: thehyve/aws-ecr-credentials
+  # -- Docker image tag
+  tag: ""
+  # -- Docker image pull policy
+  pullPolicy: Always
+
+# -- Docker registry secret names as an array
+imagePullSecrets: []
+
+# -- String to partially override fullname template with a string (will prepend the release name)
+nameOverride: ""
+# -- String to fully override fullname template with a string
+fullnameOverride: ""
+
+# -- Additional annotations for Job pods
+podAnnotations: {}
+
+# -- Security context for pods
+podSecurityContext: {}
+  # fsGroup: 2000
+
+# -- Security context for containers
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# -- Node labels for pod assignment
+nodeSelector: {}
+
+# -- Namespace where the AWS login jobs will take place. By default, the helm chart namespace is used.
+namespaceOverride: ""
+# -- Namespaces where the Amazon Elastic Container Registry secret will be created and maintained
+targetNamespaces:
+  - default
+# -- Whether to patch the `default` service account to use the created secret as a default image pull secret in the target namespaces
+patchServiceAccount: true
+
+aws:
+  # -- AWS account number of the ECR
+  account: ""
+  # -- AWS region where ECR repositories are hosted
+  region: ""
+  # -- AWS access key ID, preferably of a read-only user for the ECR
+  accessKeyId: ""
+  # -- AWS secret access key corresponding to the access key ID
+  secretAccessKey: ""
