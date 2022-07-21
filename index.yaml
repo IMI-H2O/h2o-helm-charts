@@ -1,0 +1,59 @@
+apiVersion: v1
+entries:
+  aws-ecr-credentials:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-07-21T15:04:49.356118673Z"
+    description: Seemlessly update AWS ECR credentials into Kubernetes as a pull secret
+      to pull private repositories with.
+    digest: 4be73e97e1d7ad379f9a6881d1d1be6113ff528cba468df7bfd8bdb4387a31de
+    keywords:
+    - aws ecr
+    - imagePullSecrets
+    - kubernetes
+    maintainers:
+    - email: joris@thehyve.nl
+      name: Joris Borgdorff
+    name: aws-ecr-credentials
+    sources:
+    - https://github.com/IMI-H2O/h2o-helm-charts/tree/master/charts/aws-ecr-credentials
+    type: application
+    urls:
+    - https://github.com/IMI-H2O/h2o-helm-charts/releases/download/aws-ecr-credentials-0.1.0/aws-ecr-credentials-0.1.0.tgz
+    version: 0.1.0
+  outcomes-dashboard-api:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2022-07-21T15:04:49.541542882Z"
+    description: API for data in the H2O outcomes dashboard
+    digest: f6810f139378d8ae193cc4328d6782ad83fe361c250f940295a9a91fa101813f
+    home: https://radar-base.org
+    maintainers:
+    - email: keyvan@thehyve.nl
+      name: Keyvan Hedayati
+      url: https://www.thehyve.nl
+    - email: joris@thehyve.nl
+      name: Joris Borgdorff
+      url: https://www.thehyve.nl/experts/joris-borgdorff
+    - email: nivethika@thehyve.nl
+      name: Nivethika Mahasivam
+      url: https://www.thehyve.nl/experts/nivethika-mahasivam
+    name: outcomes-dashboard-api
+    sources:
+    - https://github.com/IMI-H2O/outcomes-dashboard
+    type: application
+    urls:
+    - https://github.com/IMI-H2O/h2o-helm-charts/releases/download/outcomes-dashboard-api-0.1.0/outcomes-dashboard-api-0.1.0.tgz
+    version: 0.1.0
+  outcomes-dashboard-webapp:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-07-21T15:04:49.735368315Z"
+    description: A Helm chart for Kubernetes
+    digest: b07fa0f0f9c656cd12a39638fba5c312a9e03909c8f71dd6a0bce4f9970cfd97
+    name: outcomes-dashboard-webapp
+    type: application
+    urls:
+    - https://github.com/IMI-H2O/h2o-helm-charts/releases/download/outcomes-dashboard-webapp-0.1.0/outcomes-dashboard-webapp-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-07-21T15:04:49.735375815Z"
