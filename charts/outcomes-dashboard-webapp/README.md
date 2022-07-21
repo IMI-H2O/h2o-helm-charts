@@ -22,9 +22,6 @@ A Helm chart for Kubernetes
 | imagePullSecrets | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | fullnameOverride | string | `""` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.name | string | `""` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
 | securityContext | object | `{}` |  |

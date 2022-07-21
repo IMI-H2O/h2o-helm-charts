@@ -49,14 +49,3 @@ Selector labels
 app.kubernetes.io/name: {{ include "outcomes-dashboard-webapp.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "outcomes-dashboard-webapp.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "outcomes-dashboard-webapp.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}

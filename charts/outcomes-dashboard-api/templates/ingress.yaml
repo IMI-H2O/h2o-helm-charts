@@ -1,6 +1,10 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "outcomes-dashboard-api.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
+{{- $path := .Values.ingress.path -}}
+{{- $hosts := .Values.ingress.hosts -}}
+{{- $svcPort := .Values.service.port -}}
+{{- $pathType := .Values.ingress.pathType -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
@@ -38,13 +42,12 @@ spec:
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ . | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - path: {{ .path }}
-            {{- if and .pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
-            pathType: {{ .pathType }}
+          - path: {{ $path | quote }}
+            {{- if and $pathType (semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion) }}
+            pathType: {{ $pathType }}
             {{- end }}
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
@@ -56,6 +59,5 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end }}
-          {{- end }}
     {{- end }}
 {{- end }}

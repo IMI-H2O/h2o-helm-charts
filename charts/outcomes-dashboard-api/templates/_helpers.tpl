@@ -31,6 +31,17 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Return true if a secret object should be created
+*/}}
+{{- define "outcomes-dashboard-api.createSecret" -}}
+{{- if .Values.existingSecret }}
+{{- else if .Values.existingSecret -}}
+{{- else -}}
+    {{- true -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Common labels
 */}}
 {{- define "outcomes-dashboard-api.labels" -}}
@@ -48,15 +59,4 @@ Selector labels
 {{- define "outcomes-dashboard-api.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "outcomes-dashboard-api.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
-{{- end }}
-
-{{/*
-Create the name of the service account to use
-*/}}
-{{- define "outcomes-dashboard-api.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "outcomes-dashboard-api.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
 {{- end }}
