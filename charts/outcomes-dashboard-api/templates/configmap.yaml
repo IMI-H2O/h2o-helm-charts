@@ -1,18 +1,18 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "radar-rest-sources-backend.fullname" . }}
+  name: {{ template "outcomes-dashboard-api.fullname" . }}
   labels:
-    app: {{ template "radar-rest-sources-backend.name" . }}
-    chart: {{ template "radar-rest-sources-backend.chart" . }}
+    app: {{ template "outcomes-dashboard-api.name" . }}
+    chart: {{ template "outcomes-dashboard-api.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
   authorizer.yml: |
     service:
       # Interval time in minutes for syncing projects and subjects.
-      baseUri: http://0.0.0.0:8080/rest-sources/backend/
-      advertisedBaseUri: https://{{ .Values.serverName }}/rest-sources/backend/
+      baseUri: http://0.0.0.0:8080/h2o/api/
+      advertisedBaseUri: https://{{ .Values.serverName }}/h2o/api/
       enableCors: true
       syncParticipantsIntervalMin: 2
 

@@ -7,7 +7,7 @@ replicaCount: 2
 
 image:
   # -- docker image repository
-  repository: quay.io/imi-h2o/outcomes-dashboard-webapp
+  repository: quay.io/imi-h2o/outcomes-dashboard-api
   # -- image pull policy
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
@@ -109,3 +109,7 @@ jdbc:
   password: password
   # -- JDBC dialect to use for JDBC Connection
   dialect: org.hibernate.dialect.PostgreSQL10Dialect
+
+postgres:
+  ssl:
+    enabled: false
