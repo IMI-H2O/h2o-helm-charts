@@ -13,7 +13,7 @@ kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-{{ include "management-portal.labels" . | indent 4 }}
+{{ include "outcomes-dashboard-api.labels" . | indent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -48,4 +48,3 @@ spec:
               {{- end }}
   {{- end }}
 {{- end }}
-
