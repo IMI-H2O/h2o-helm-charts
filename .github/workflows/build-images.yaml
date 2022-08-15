@@ -110,4 +110,4 @@ jobs:
           docker pull ${{ fromJson(steps.docker_meta.outputs.json).tags[0] }}
           docker image inspect ${{ fromJson(steps.docker_meta.outputs.json).tags[0] }}
           docker run --rm ${{ fromJson(steps.docker_meta.outputs.json).tags[0] }} aws --version
-          docker run --rm ${{ fromJson(steps.docker_meta.outputs.json).tags[0] }} kubectl --version
+          docker run --rm ${{ fromJson(steps.docker_meta.outputs.json).tags[0] }} kubectl version --output=yaml --client
