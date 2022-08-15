@@ -33,7 +33,7 @@ jobs:
         run: |
           image_version=$(grep "appVersion:" charts/aws-ecr-credentials/Chart.yaml | cut -d ' ' -f 2)
           echo "Image version: $image_version"
-          echo "::set-output name=image-version::$kube_version"
+          echo "::set-output name=image-version::$image_version"
           aws_version=$(docker run --rm amazon/aws-cli --version | cut -d ' ' -f 1 | cut -d '/' -f 2)
           echo "AWS version: $aws_version"
           echo "::set-output name=aws-version::$aws_version"
