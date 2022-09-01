@@ -93,10 +93,41 @@ existingSecret: ""
 
 # -- Standard JAVA_OPTS that should be passed to this service
 javaOpts: "-Xmx550m"
-# -- OAuth2 client id
-clientId: h2o_outcomes_dashboard_api
-# -- OAuth2 client secret
-clientSecret: secret
+
+managementPortal:
+  url: http://management-portal:8080/managementportal
+  # -- OAuth2 client id
+  clientId: h2o_outcomes_dashboard_api
+  # -- OAuth2 client secret
+  clientSecret: secret
+
+path: /h2o/api
+
+score:
+  anxiety:
+    csvTable: ANXTHETA.tsv
+    lookup: [EDANX01, EDANX40, EDANX41, EDANX53]
+  cognition:
+    csvTable: COGTHETA.tsv
+    lookup: [PC13r, PC8r]
+  depression:
+    csvTable: DEPTHETA.tsv
+    lookup: [EDDEP04, EDDEP06, EDDEP29, EDDEP41]
+  fatigue:
+    csvTable: FATTHETA.tsv
+    lookup: [An3, FATEXP40, FATEXP41, HI7]
+  pain:
+    csvTable: PAINTHETA.tsv
+    lookup: [PAININ22, PAININ31, PAININ34, PAININ9]
+  pf:
+    csvTable: PFTHETA.tsv
+    lookup: [PFA11, PFA21, PFA23, PFA53]
+  sf:
+    csvTable: SFTHETA.tsv
+    lookup: [SRPPER11_CaPS, SRPPER18_CaPS, SRPPER23_CaPS, SRPPER46_CaPS]
+  sleep:
+    csvTable: SLEEPTHETA.tsv
+    lookup: [Sleep109, Sleep116, Sleep20, Sleep44]
 
 jdbc:
   # -- JDBC Driver to connect to the database.
@@ -108,8 +139,4 @@ jdbc:
   # -- Password of the user
   password: password
   # -- JDBC dialect to use for JDBC Connection
-  dialect: org.hibernate.dialect.PostgreSQL10Dialect
-
-postgres:
-  ssl:
-    enabled: false
+  dialect: org.hibernate.dialect.PostgreSQLDialect

@@ -19,14 +19,14 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+  {{- if .Values.ingress.tls }}
   tls:
     - hosts:
-      {{- range $hosts }}
+        {{- range .Values.ingress.hosts }}
         - {{ . | quote }}
-      {{- end }}
+        {{- end }}
       secretName: {{ .Values.ingress.tls.secretName }}
-{{- end }}
+  {{- end }}
   rules:
   {{- range .Values.ingress.hosts }}
     - host: {{ . | quote }}

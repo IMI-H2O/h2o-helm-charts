@@ -1,9 +1,14 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "outcomes-dashboard-webapp.fullname" . -}}
 {{- $path := .Values.ingress.path -}}
-{{- $hosts := .Values.ingress.hosts -}}
 {{- $svcPort := .Values.service.port -}}
+{{- $path := .Values.ingress.path -}}
 {{- $pathType := .Values.ingress.pathType -}}
+{{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.ingress.annotations "kubernetes.io/ingress.class" .Values.ingress.className}}
+  {{- end }}
+{{- end }}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else -}}
@@ -19,16 +24,16 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingress.tls }}
+  {{- if .Values.ingress.tls }}
   tls:
     - hosts:
-      {{- range $hosts }}
+        {{- range .Values.ingress.hosts }}
         - {{ . | quote }}
-      {{- end }}
+        {{- end }}
       secretName: {{ .Values.ingress.tls.secretName }}
-{{- end }}
+  {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
+    {{- range .Values.ingress.hosts }}
     - host: {{ . | quote }}
       http:
         paths:
@@ -46,5 +51,5 @@ spec:
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end }}
-  {{- end }}
+    {{- end }}
 {{- end }}

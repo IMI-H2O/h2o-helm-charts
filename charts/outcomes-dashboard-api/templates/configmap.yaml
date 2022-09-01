@@ -8,32 +8,19 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 data:
-  authorizer.yml: |
-    service:
-      # Interval time in minutes for syncing projects and subjects.
-      baseUri: http://0.0.0.0:8080/h2o/api/
-      advertisedBaseUri: https://{{ .Values.serverName }}/h2o/api/
-      enableCors: true
-      syncParticipantsIntervalMin: 2
+  dashboard.yml: |
+    # Interval time in minutes for syncing projects and subjects.
+    baseUri: http://0.0.0.0:8080{{ .Values.path }}
 
     auth:
       # Management Portal URL
-      managementPortalUrl: http://{{ .Values.managementportal_host }}:8080/managementportal
-      # OAuth2 Client id of rest sources authorizer backend
-      clientId: radar_rest_sources_auth_backend
-      # OAuth2 Client Secret of rest sources authorizer backend client
-      clientSecret: {{ .Values.client_secret }}
+      managementPortal:
+        url: {{ .Values.managementPortal.url }}
+      jwtResourceName: res_outcomes_dashboard_api
+
+    score:
+      {{- toYaml .Values.score | nindent 6 }}
 
     database:
-      driver: org.postgresql.Driver
-      url: jdbc:postgresql://{{ .Values.postgres.host }}:{{ .Values.postgres.port }}/{{ .Values.postgres.database }}{{ .Values.postgres.connection_parameters }}
-      user: {{ .Values.postgres.user }}
-      password: {{ .Values.postgres.password }}
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-
-    restSourceClients:
-      {{- range $clientId, $client := .Values.restSourceClients -}}
-      {{- if $client.enable -}}
-      {{ (list (omit $client "enable")) | toYaml | nindent 6 }}
-      {{- end -}}
-      {{- end }}
+      driver: {{ .Values.jdbc.driver }}
+      dialect: {{ .Values.jdbc.dialect }}

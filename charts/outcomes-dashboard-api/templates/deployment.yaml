@@ -13,9 +13,11 @@ spec:
       {{- include "outcomes-dashboard-api.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
+      {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
       {{- end }}
       labels:
         {{- include "outcomes-dashboard-api.selectorLabels" . | nindent 8 }}
@@ -32,20 +34,49 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args:
+            - "outcomes-dashboard-api"
+            - "/etc/outcomes-dashboard-api/dashboard.yml"
+          env:
+          - name: MANAGEMENT_PORTAL_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "outcomes-dashboard-api.secretName" . }}
+                key: managementPortalClientId
+          - name: MANAGEMENT_PORTAL_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "outcomes-dashboard-api.secretName" . }}
+                key: managementPortalClientSecret
+          - name: DATABASE_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "outcomes-dashboard-api.secretName" . }}
+                key: databaseUrl
+          - name: DATABASE_USER
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "outcomes-dashboard-api.secretName" . }}
+                key: databaseUser
+          - name: DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ template "outcomes-dashboard-api.secretName" . }}
+                key: databasePassword
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: /h2o/api/health
               port: http
               httpHeaders:
                 - name: Accept
                   value: application/json
           readinessProbe:
             httpGet:
-              path: /
+              path: /h2o/api/health
               port: http
               httpHeaders:
                 - name: Accept
@@ -55,19 +86,10 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /etc/outcomes-dashboard-api/
-            {{- if .Values.postgres.ssl.enabled }}
-            - name: postgres-root-cert
-              mountPath: /root/.postgresql/
-            {{ end }}
       volumes:
         - name: config
           configMap:
             name: {{ include "outcomes-dashboard-api.fullname" . }}
-        {{- if .Values.postgres.ssl.enabled }}
-        - name: postgres-root-cert
-          configMap:
-            name: {{ include "outcomes-dashboard-api.fullname" . }}-root-cert
-        {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

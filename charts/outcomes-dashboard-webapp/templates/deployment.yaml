@@ -32,9 +32,24 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: BASE_HREF
+              value: /h2o/
+            - name: AUTH_URL
+              value: {{ .Values.managementPortal.url }}/oauth
+            - name: AUTH_CALLBACK_URL
+              value: https://{{ .Values.serverName }}/h2o/login
+            - name: DASHBOARD_API_URL
+              value: /h2o/api
+            - name: AUTH_GRANT_TYPE
+              value: "authorization_code"
+            - name: AUTH_CLIENT_ID
+              value: {{ .Values.managementPortal.clientId }}
+            - name: AUTH_CLIENT_SECRET
+              value: {{ .Values.managementPortal.clientSecret }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           livenessProbe:
             httpGet:

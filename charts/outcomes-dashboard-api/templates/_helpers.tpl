@@ -31,6 +31,17 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 {{/*
+Get the password secret.
+*/}}
+{{- define "outcomes-dashboard-api.secretName" -}}
+{{- if .Values.existingSecret }}
+    {{- printf "%s" .Values.existingSecret -}}
+{{- else -}}
+    {{- printf "%s" (include "outcomes-dashboard-api.fullname" .) -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Return true if a secret object should be created
 */}}
 {{- define "outcomes-dashboard-api.createSecret" -}}
