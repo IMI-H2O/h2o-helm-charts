@@ -24,6 +24,29 @@ entries:
   outcomes-dashboard-api:
   - apiVersion: v2
     appVersion: 0.1.0
+    created: "2022-09-05T12:41:09.454699749Z"
+    description: API for data in the H2O outcomes dashboard
+    digest: f8a2df8b1b35b6a205abcc6762aaa9733bd85f3edd7dd570a2fe705fabd4a6b8
+    home: https://radar-base.org
+    maintainers:
+    - email: keyvan@thehyve.nl
+      name: Keyvan Hedayati
+      url: https://www.thehyve.nl
+    - email: joris@thehyve.nl
+      name: Joris Borgdorff
+      url: https://www.thehyve.nl/experts/joris-borgdorff
+    - email: nivethika@thehyve.nl
+      name: Nivethika Mahasivam
+      url: https://www.thehyve.nl/experts/nivethika-mahasivam
+    name: outcomes-dashboard-api
+    sources:
+    - https://github.com/IMI-H2O/outcomes-dashboard
+    type: application
+    urls:
+    - https://github.com/IMI-H2O/h2o-helm-charts/releases/download/outcomes-dashboard-api-0.1.1/outcomes-dashboard-api-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 0.1.0
     created: "2022-07-21T15:04:49.541542882Z"
     description: API for data in the H2O outcomes dashboard
     digest: f6810f139378d8ae193cc4328d6782ad83fe361c250f940295a9a91fa101813f
@@ -48,6 +71,16 @@ entries:
   outcomes-dashboard-webapp:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-09-05T12:41:09.614803113Z"
+    description: A Helm chart for Kubernetes
+    digest: d4d119f549c42dcf1c4dd46ddb1921d7a574170c87d16fcad12a416fc063409f
+    name: outcomes-dashboard-webapp
+    type: application
+    urls:
+    - https://github.com/IMI-H2O/h2o-helm-charts/releases/download/outcomes-dashboard-webapp-0.1.1/outcomes-dashboard-webapp-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-07-21T15:04:49.735368315Z"
     description: A Helm chart for Kubernetes
     digest: b07fa0f0f9c656cd12a39638fba5c312a9e03909c8f71dd6a0bce4f9970cfd97
@@ -56,4 +89,4 @@ entries:
     urls:
     - https://github.com/IMI-H2O/h2o-helm-charts/releases/download/outcomes-dashboard-webapp-0.1.0/outcomes-dashboard-webapp-0.1.0.tgz
     version: 0.1.0
-generated: "2022-07-21T15:04:49.735375815Z"
+generated: "2022-09-05T12:41:09.614817713Z"
