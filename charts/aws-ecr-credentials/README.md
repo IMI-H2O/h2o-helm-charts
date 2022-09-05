@@ -81,7 +81,7 @@ spec:
 | podSecurityContext | object | `{}` | Security context for pods |
 | securityContext | object | `{}` | Security context for containers |
 | nodeSelector | object | `{}` | Node labels for pod assignment |
-| namespace | string | `"default"` | Namespace where the AWS login jobs will take place |
+| namespaceOverride | string | `""` | Namespace where the AWS login jobs will take place. By default, the helm chart namespace is used. |
 | targetNamespaces | list | `["default"]` | Namespaces where the Amazon Elastic Container Registry secret will be created and maintained |
 | patchServiceAccount | bool | `true` | Whether to patch the `default` service account to use the created secret as a default image pull secret in the target namespaces |
 | aws.account | string | `""` | AWS account number of the ECR |

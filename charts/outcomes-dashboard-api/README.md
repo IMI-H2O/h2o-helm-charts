@@ -2,7 +2,7 @@
 
 # outcomes-dashboard-api
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
+![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.1.0](https://img.shields.io/badge/AppVersion-0.1.0-informational?style=flat-square)
 
 API for data in the H2O outcomes dashboard
 
@@ -30,7 +30,7 @@ API for data in the H2O outcomes dashboard
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | replicaCount | int | `2` | Number of replicas to deploy |
-| image.repository | string | `"quay.io/imi-h2o/outcomes-dashboard-webapp"` | docker image repository |
+| image.repository | string | `"quay.io/imi-h2o/outcomes-dashboard-api"` | docker image repository |
 | image.pullPolicy | string | `"Always"` | image pull policy |
 | image.tag | string | `"dev"` |  |
 | imagePullSecrets | list | `[]` | Docker registry secret names as an array |
@@ -42,11 +42,11 @@ API for data in the H2O outcomes dashboard
 | service.port | int | `8080` | outcomes-dashboard-api port |
 | ingress.enabled | bool | `true` | Enable ingress controller resource |
 | ingress.className | string | `""` | Ingress class name |
-| ingress.annotations | object | check values.yaml | Annotations that define default ingress class, certificate issuer and session configuration |
-| ingress.hosts[0].host | string | `"chart-example.local"` | Host to accept requests from |
-| ingress.hosts[0].paths[0].path | string | `"/"` | Path to resolve with this ingress |
-| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` | Ingress path type |
-| ingress.tls | list | `[]` |  |
+| ingress.annotations | object | check values.yaml | Annotations that define default ingress class, certificate issuer |
+| ingress.path | string | `"/h2o/api($|/)(.*)"` | Path within the url structure |
+| ingress.pathType | string | `"ImplementationSpecific"` |  |
+| ingress.hosts | list | `["localhost"]` | Hosts to accept requests from |
+| ingress.tls.secretName | string | `"radar-base-tls"` | TLS Secret Name |
 | resources | object | `{}` |  |
 | autoscaling.enabled | bool | `false` | Enable horizontal autoscaling |
 | autoscaling.minReplicas | int | `1` |  |
@@ -55,3 +55,15 @@ API for data in the H2O outcomes dashboard
 | nodeSelector | object | `{}` | Node labels for pod assignment |
 | tolerations | list | `[]` | Toleration labels for pod assignment |
 | affinity | object | `{}` | Affinity labels for pod assignment |
+| existingSecret | string | `""` |  |
+| javaOpts | string | `"-Xmx550m"` | Standard JAVA_OPTS that should be passed to this service |
+| managementPortal.url | string | `"http://management-portal:8080/managementportal"` | ManagementPortal URL |
+| managementPortal.clientId | string | `"h2o_outcomes_dashboard_api"` | ManagementPortal OAuth 2.0 client ID, having grant type client_credentials |
+| managementPortal.clientSecret | string | `"secret"` | ManagementPortal OAuth 2.0 client secret |
+| path | string | `"/h2o/api"` |  |
+| score | object | Diabetes score calculation table configurations | Where to find lookup tables for score calculations, and how to calculate them. |
+| jdbc.driver | string | `"org.postgresql.Driver"` | JDBC Driver to connect to the database. |
+| jdbc.url | string | `"jdbc:postgresql://postgresql:5432/outcomes"` | JDBC Connection url of the database. |
+| jdbc.user | string | `"radarbase"` | Username of the database |
+| jdbc.password | string | `"password"` | Password of the user |
+| jdbc.dialect | string | `"org.hibernate.dialect.PostgreSQLDialect"` | Hibernate dialect to use for JDBC Connection |

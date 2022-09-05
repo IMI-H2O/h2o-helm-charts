@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "0.1.0"
 name: outcomes-dashboard-api
 description: API for data in the H2O outcomes dashboard
-version: 0.1.0
+version: 0.1.1
 sources: ["https://github.com/IMI-H2O/outcomes-dashboard"]
 deprecated: false
 type: application
